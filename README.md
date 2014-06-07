@@ -1,4 +1,4 @@
 Analog_Delay
 ============
 
-Analog Delay Effector with Tap Tempo, Stereo In/Out, Ping-Pong and DryOut
+Analog Delay Effector using BBD with Tap Tempo, Stereo In/Out, Ping-Pong Delay and Dryout option. 

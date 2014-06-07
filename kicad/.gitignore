@@ -1,0 +1,6 @@
+*.bak
+*.kicad_pcb-bck
+*.rpt
+*.ses
+*.tmp
+*.dsn
