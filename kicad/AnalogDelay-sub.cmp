@@ -1,0 +1,276 @@
+Cmp-Mod V01 Created by CvPcb (2013-07-07 BZR 4022)-stable date = 2013/12/23 8:15:23
+
+BeginCmp
+TimeStamp = /52B6A3E6;
+Reference = C101;
+ValeurCmp = 10/10;
+IdModule  = c_2012;
+EndCmp
+
+BeginCmp
+TimeStamp = /52B6A3E0;
+Reference = C102;
+ValeurCmp = 0.1;
+IdModule  = c_1005;
+EndCmp
+
+BeginCmp
+TimeStamp = /52B6815A;
+Reference = C103;
+ValeurCmp = 0.1;
+IdModule  = c_1005;
+EndCmp
+
+BeginCmp
+TimeStamp = /52B68162;
+Reference = C104;
+ValeurCmp = 10/10;
+IdModule  = c_2012;
+EndCmp
+
+BeginCmp
+TimeStamp = /52B69EA2;
+Reference = C105;
+ValeurCmp = 1000p;
+IdModule  = c_1005;
+EndCmp
+
+BeginCmp
+TimeStamp = /52B0CC42;
+Reference = C106;
+ValeurCmp = OPEN;
+IdModule  = c_1005;
+EndCmp
+
+BeginCmp
+TimeStamp = /52B6C493;
+Reference = C107;
+ValeurCmp = OPEN;
+IdModule  = c_1005;
+EndCmp
+
+BeginCmp
+TimeStamp = /52B0CD04;
+Reference = C108;
+ValeurCmp = 1000p;
+IdModule  = c_1005;
+EndCmp
+
+BeginCmp
+TimeStamp = /52B6C499;
+Reference = C109;
+ValeurCmp = OPEN;
+IdModule  = c_1005;
+EndCmp
+
+BeginCmp
+TimeStamp = /52B0CC64;
+Reference = C110;
+ValeurCmp = OPEN;
+IdModule  = c_1005;
+EndCmp
+
+BeginCmp
+TimeStamp = /52B0CD91;
+Reference = C111;
+ValeurCmp = 1000p;
+IdModule  = c_1005;
+EndCmp
+
+BeginCmp
+TimeStamp = /52B63796;
+Reference = C112;
+ValeurCmp = OPEN;
+IdModule  = c_1005;
+EndCmp
+
+BeginCmp
+TimeStamp = /52B6368D;
+Reference = C113;
+ValeurCmp = OPEN;
+IdModule  = c_1005;
+EndCmp
+
+BeginCmp
+TimeStamp = /52B64616;
+Reference = C114;
+ValeurCmp = 0.1;
+IdModule  = c_1005;
+EndCmp
+
+BeginCmp
+TimeStamp = /52B64712;
+Reference = C115;
+ValeurCmp = 0.1;
+IdModule  = c_1005;
+EndCmp
+
+BeginCmp
+TimeStamp = /52B63827;
+Reference = C116;
+ValeurCmp = OPEN;
+IdModule  = c_1005;
+EndCmp
+
+BeginCmp
+TimeStamp = /52B63693;
+Reference = C117;
+ValeurCmp = OPEN;
+IdModule  = c_1005;
+EndCmp
+
+BeginCmp
+TimeStamp = /52B6A8F8;
+Reference = CON101;
+ValeurCmp = AVR-ISP-6;
+IdModule  = pin_array_3x2;
+EndCmp
+
+BeginCmp
+TimeStamp = /52B77175;
+Reference = CON102;
+ValeurCmp = AVR-ISP-6;
+IdModule  = pin_array_3x2;
+EndCmp
+
+BeginCmp
+TimeStamp = /52B7717B;
+Reference = CON103;
+ValeurCmp = AVR-ISP-6;
+IdModule  = 06FMN-BMTTN-A-TF;
+EndCmp
+
+BeginCmp
+TimeStamp = /52B77A26;
+Reference = CON104;
+ValeurCmp = AVR-ISP-6;
+IdModule  = 06FMN-BMTTN-A-TF;
+EndCmp
+
+BeginCmp
+TimeStamp = /52B6D8DA;
+Reference = IC101;
+ValeurCmp = ATMEGA88PA-P;
+IdModule  = DIP-28__300;
+EndCmp
+
+BeginCmp
+TimeStamp = /52B0C89F;
+Reference = P101;
+ValeurCmp = CONN_4X2;
+IdModule  = pin_array_4x2;
+EndCmp
+
+BeginCmp
+TimeStamp = /52B66C9C;
+Reference = R101;
+ValeurCmp = OPEN;
+IdModule  = r_1005;
+EndCmp
+
+BeginCmp
+TimeStamp = /52B69B66;
+Reference = R102;
+ValeurCmp = 1k;
+IdModule  = r_1005;
+EndCmp
+
+BeginCmp
+TimeStamp = /52B643E8;
+Reference = R103;
+ValeurCmp = 100;
+IdModule  = r_1005;
+EndCmp
+
+BeginCmp
+TimeStamp = /52B64702;
+Reference = R104;
+ValeurCmp = 100;
+IdModule  = r_1005;
+EndCmp
+
+BeginCmp
+TimeStamp = /52B638C6;
+Reference = R105;
+ValeurCmp = 100;
+IdModule  = r_1005;
+EndCmp
+
+BeginCmp
+TimeStamp = /52B638CC;
+Reference = R106;
+ValeurCmp = 100;
+IdModule  = r_1005;
+EndCmp
+
+BeginCmp
+TimeStamp = /52B634B9;
+Reference = R107;
+ValeurCmp = 10k;
+IdModule  = r_1005;
+EndCmp
+
+BeginCmp
+TimeStamp = /52B634C6;
+Reference = R108;
+ValeurCmp = 10k;
+IdModule  = r_1005;
+EndCmp
+
+BeginCmp
+TimeStamp = /52B6895B;
+Reference = RV101;
+ValeurCmp = 10k;
+IdModule  = RV2;
+EndCmp
+
+BeginCmp
+TimeStamp = /52B63E36;
+Reference = RV102;
+ValeurCmp = RK09K1130AAU;
+IdModule  = RK09K1130AAU;
+EndCmp
+
+BeginCmp
+TimeStamp = /52B63E4D;
+Reference = RV103;
+ValeurCmp = RK09K1130AAU;
+IdModule  = RK09K1130AAU;
+EndCmp
+
+BeginCmp
+TimeStamp = /52B6DAED;
+Reference = U101;
+ValeurCmp = ACM0802C;
+IdModule  = ACM0802C;
+EndCmp
+
+BeginCmp
+TimeStamp = /52B6DB72;
+Reference = U102;
+ValeurCmp = TC7SZ125F;
+IdModule  = SC-74A;
+EndCmp
+
+BeginCmp
+TimeStamp = /52B6DB60;
+Reference = U103;
+ValeurCmp = TC7SZ125F;
+IdModule  = SC-74A;
+EndCmp
+
+BeginCmp
+TimeStamp = /52B63E02;
+Reference = U104;
+ValeurCmp = EC12E2420802;
+IdModule  = EC12E-BUSHING-20;
+EndCmp
+
+BeginCmp
+TimeStamp = /52B6C2A3;
+Reference = X101;
+ValeurCmp = OPEN;
+IdModule  = HC-49V;
+EndCmp
+
+EndListe

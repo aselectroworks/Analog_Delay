@@ -1,0 +1,23 @@
+/*
+ * AD5280_5282.h
+ *
+ * Created: 2014/01/25 16:32:31
+ *  Author: A.S
+ */ 
+
+
+#ifndef AD5280_5282_H_
+#define AD5280_5282_H_
+
+#define AD5280_5282_BASE_ADDR	0x2C
+#define AD5280_5282_ADR_PIN		0x00
+#define AD5280_5282_ADR_BYTE		AD5280_5282_BASE_ADDR | AD5280_5282_ADR_PIN
+#define AD5280_5282_SUBADR_BIT	7
+#define AD5280_5282_RS_BIT		6
+#define AD5280_5282_SD_BIT		5
+#define AD5280_5282_O1_BIT		4
+#define AD5280_5282_O2_BIT		3
+
+
+
+#endif /* AD5280_5282_H_ */
