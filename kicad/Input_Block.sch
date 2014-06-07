@@ -42,6 +42,9 @@ LIBS:my_capacitor
 LIBS:my_resistor
 LIBS:jrc
 LIBS:rohm
+LIBS:temp
+LIBS:alps
+LIBS:on_semiconductor
 LIBS:AnalogDelay-cache
 EELAYER 27 0
 EELAYER END
@@ -49,7 +52,7 @@ $Descr A3 16535 11693
 encoding utf-8
 Sheet 2 6
 Title ""
-Date "15 dec 2013"
+Date "30 apr 2014"
 Rev ""
 Comp ""
 Comment1 ""
@@ -1522,4 +1525,28 @@ Wire Wire Line
 	1950 7150 2850 7150
 Wire Wire Line
 	3250 7150 3500 7150
+Wire Notes Line
+	5900 2200 6600 2200
+Wire Notes Line
+	6600 2200 6600 3250
+Wire Notes Line
+	6600 3250 5900 3250
+Wire Notes Line
+	5900 3250 5900 2200
+Wire Notes Line
+	6100 2350 5400 1500
+Wire Notes Line
+	6100 2550 5400 1700
+Wire Notes Line
+	6100 3100 4950 1750
+Text Notes 4550 1750 0    60   ~ 0
+Comp IN1
+Text Notes 5000 1700 0    60   ~ 0
+Comp IN2
+Text Notes 5000 1500 0    60   ~ 0
+Comp IN3
+Wire Notes Line
+	6600 3100 6950 1300
+Text Notes 6750 1300 0    60   ~ 0
+Comp Out
 $EndSCHEMATC
