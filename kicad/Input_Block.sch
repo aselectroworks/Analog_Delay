@@ -42,7 +42,6 @@ LIBS:my_capacitor
 LIBS:my_resistor
 LIBS:jrc
 LIBS:rohm
-LIBS:temp
 LIBS:alps
 LIBS:on_semiconductor
 LIBS:AnalogDelay-cache
@@ -50,9 +49,9 @@ EELAYER 27 0
 EELAYER END
 $Descr A3 16535 11693
 encoding utf-8
-Sheet 2 6
+Sheet 2 8
 Title ""
-Date "30 apr 2014"
+Date "8 jun 2014"
 Rev ""
 Comp ""
 Comment1 ""
@@ -102,28 +101,6 @@ F 1 "47k" V 4607 2601 40  0000 C CNN
 F 2 "r_1608" V 4530 2600 30  0000 C CNN
 F 3 "~" H 4600 2600 30  0000 C CNN
 	1    4600 2600
-	0    -1   -1   0   
-$EndComp
-$Comp
-L R_1608 R208
-U 1 1 5271FE2E
-P 6350 3100
-F 0 "R208" V 6430 3100 40  0000 C CNN
-F 1 "5.6k" V 6357 3101 40  0000 C CNN
-F 2 "r_1608" V 6280 3100 30  0000 C CNN
-F 3 "~" H 6350 3100 30  0000 C CNN
-	1    6350 3100
-	0    -1   -1   0   
-$EndComp
-$Comp
-L R_1608 R201
-U 1 1 5266FA65
-P 6350 2350
-F 0 "R201" V 6430 2350 40  0000 C CNN
-F 1 "5.6k" V 6357 2351 40  0000 C CNN
-F 2 "r_1608" V 6280 2350 30  0000 C CNN
-F 3 "~" H 6350 2350 30  0000 C CNN
-	1    6350 2350
 	0    -1   -1   0   
 $EndComp
 $Comp
@@ -707,28 +684,6 @@ F 3 "~" V 4600 6350 60  0000 C CNN
 	-1   0    0    1   
 $EndComp
 $Comp
-L R_1608 R223
-U 1 1 52886D81
-P 6350 7050
-F 0 "R223" V 6430 7050 40  0000 C CNN
-F 1 "5.6k" V 6357 7051 40  0000 C CNN
-F 2 "r_1608" V 6280 7050 30  0000 C CNN
-F 3 "~" H 6350 7050 30  0000 C CNN
-	1    6350 7050
-	0    -1   -1   0   
-$EndComp
-$Comp
-L R_1608 R216
-U 1 1 52886D91
-P 6350 6300
-F 0 "R216" V 6430 6300 40  0000 C CNN
-F 1 "5.6k" V 6357 6301 40  0000 C CNN
-F 2 "r_1608" V 6280 6300 30  0000 C CNN
-F 3 "~" H 6350 6300 30  0000 C CNN
-	1    6350 6300
-	0    -1   -1   0   
-$EndComp
-$Comp
 L C_1608 C227
 U 1 1 52886D97
 P 6650 7400
@@ -939,28 +894,6 @@ F 3 "~" H 2450 2700 30  0000 C CNN
 $EndComp
 Text HLabel 15000 1550 2    60   Input ~ 0
 FBIN2_1
-$Comp
-L R_1608 R231
-U 1 1 5297325F
-P 6350 2550
-F 0 "R231" V 6430 2550 40  0000 C CNN
-F 1 "5.6k" V 6357 2551 40  0000 C CNN
-F 2 "r_1608" V 6280 2550 30  0000 C CNN
-F 3 "~" H 6350 2550 30  0000 C CNN
-	1    6350 2550
-	0    -1   -1   0   
-$EndComp
-$Comp
-L R_1608 R232
-U 1 1 529734DF
-P 6350 6500
-F 0 "R232" V 6430 6500 40  0000 C CNN
-F 1 "5.6k" V 6357 6501 40  0000 C CNN
-F 2 "r_1608" V 6280 6500 30  0000 C CNN
-F 3 "~" H 6350 6500 30  0000 C CNN
-	1    6350 6500
-	0    -1   -1   0   
-$EndComp
 Text HLabel 15000 8100 2    60   Input ~ 0
 FBIN1_2
 $Comp
@@ -1021,18 +954,13 @@ Connection ~ 5650 2600
 Wire Wire Line
 	7200 3200 7400 3200
 Wire Wire Line
-	6650 3100 6600 3100
-Wire Wire Line
 	6650 3200 6700 3200
 Connection ~ 5650 3100
-Wire Wire Line
-	6600 2350 7900 2350
 Connection ~ 6650 3200
 Wire Wire Line
 	7250 2550 7950 2550
 Wire Wire Line
 	6650 2350 6650 3250
-Connection ~ 6650 2350
 Wire Wire Line
 	7400 3000 7300 3000
 Wire Wire Line
@@ -1046,12 +974,11 @@ Wire Wire Line
 	8450 2350 8400 2350
 Connection ~ 8450 2550
 Wire Wire Line
-	6050 2350 6050 1450
+	6500 1450 6500 4450
 Wire Wire Line
-	6050 1450 15000 1450
+	6500 1450 15000 1450
 Wire Wire Line
 	8400 3100 8500 3100
-Connection ~ 6650 3100
 Wire Wire Line
 	6650 3700 6650 3650
 Connection ~ 4550 3700
@@ -1197,16 +1124,14 @@ Connection ~ 5800 6550
 Wire Wire Line
 	7200 7150 7400 7150
 Wire Wire Line
-	6650 7050 6600 7050
-Wire Wire Line
 	6650 7150 6700 7150
 Wire Wire Line
-	6600 6300 7900 6300
+	6650 6300 7900 6300
 Connection ~ 6650 7150
 Wire Wire Line
 	7250 6500 7950 6500
 Wire Wire Line
-	6650 6300 6650 7200
+	6650 5200 6650 7200
 Connection ~ 6650 6300
 Wire Wire Line
 	7400 6950 7300 6950
@@ -1221,10 +1146,7 @@ Wire Wire Line
 	8450 6300 8400 6300
 Connection ~ 8450 6500
 Wire Wire Line
-	6100 6300 6050 6300
-Wire Wire Line
 	8400 7050 8500 7050
-Connection ~ 6650 7050
 Wire Wire Line
 	6650 7650 6650 7600
 Connection ~ 4550 7650
@@ -1317,7 +1239,7 @@ Connection ~ 12550 7900
 Wire Wire Line
 	5800 7050 5600 7050
 Wire Wire Line
-	5800 3100 6100 3100
+	5800 3100 6200 3100
 Wire Wire Line
 	5800 5400 15000 5400
 Wire Wire Line
@@ -1339,8 +1261,6 @@ Wire Wire Line
 Connection ~ 14000 3600
 Connection ~ 14100 3700
 Connection ~ 14200 3800
-Wire Wire Line
-	6050 2350 6100 2350
 Wire Wire Line
 	14000 3600 15000 3600
 Wire Wire Line
@@ -1456,7 +1376,7 @@ Wire Wire Line
 	6000 4100 6000 3700
 Connection ~ 6000 3700
 Wire Wire Line
-	6000 7050 6100 7050
+	6000 5500 6350 5500
 Connection ~ 5900 5600
 Wire Wire Line
 	5600 5400 5700 5400
@@ -1475,39 +1395,29 @@ Connection ~ 5100 4000
 Wire Wire Line
 	5900 4100 5900 3900
 Wire Wire Line
-	5900 3900 6300 3900
+	5900 3900 6250 3900
 Wire Wire Line
-	6300 3900 6300 5400
-Connection ~ 6300 5400
+	6250 3900 6250 5400
+Connection ~ 6250 5400
 Wire Wire Line
 	5700 5300 5700 5950
 Wire Wire Line
-	6000 5300 6000 7050
+	6000 5300 6000 5500
 Wire Wire Line
 	5800 5400 5800 5300
 Connection ~ 5700 5950
 Wire Wire Line
-	15000 1550 5950 1550
+	15000 1550 6400 1550
 Wire Wire Line
-	5950 1550 5950 2550
+	6400 1550 6400 4350
 Wire Wire Line
-	5950 2550 6100 2550
+	6550 4700 6550 8100
 Wire Wire Line
-	6600 2550 6650 2550
-Connection ~ 6650 2550
+	6550 8100 15000 8100
 Wire Wire Line
-	6100 6500 5850 6500
+	6450 8000 15000 8000
 Wire Wire Line
-	5850 6500 5850 8100
-Wire Wire Line
-	5850 8100 15000 8100
-Wire Wire Line
-	6050 8000 15000 8000
-Wire Wire Line
-	6050 6300 6050 8000
-Wire Wire Line
-	6600 6500 6650 6500
-Connection ~ 6650 6500
+	6450 4800 6450 8000
 Wire Wire Line
 	2850 3200 1950 3200
 $Comp
@@ -1525,28 +1435,56 @@ Wire Wire Line
 	1950 7150 2850 7150
 Wire Wire Line
 	3250 7150 3500 7150
-Wire Notes Line
-	5900 2200 6600 2200
-Wire Notes Line
-	6600 2200 6600 3250
-Wire Notes Line
-	6600 3250 5900 3250
-Wire Notes Line
-	5900 3250 5900 2200
-Wire Notes Line
-	6100 2350 5400 1500
-Wire Notes Line
-	6100 2550 5400 1700
-Wire Notes Line
-	6100 3100 4950 1750
-Text Notes 4550 1750 0    60   ~ 0
-Comp IN1
-Text Notes 5000 1700 0    60   ~ 0
-Comp IN2
-Text Notes 5000 1500 0    60   ~ 0
-Comp IN3
-Wire Notes Line
-	6600 3100 6950 1300
-Text Notes 6750 1300 0    60   ~ 0
-Comp Out
+$Sheet
+S 7000 4000 1050 1050
+U 539408DE
+F0 "compressor" 50
+F1 "compander.sch" 50
+F2 "VOUT" O R 8050 4100 60 
+F3 "OUT1" O R 8050 4250 60 
+F4 "GND" U L 7000 4950 60 
+F5 "IN1_3" I L 7000 4450 60 
+F6 "IN1_2" I L 7000 4350 60 
+F7 "IN1_1" I L 7000 4250 60 
+F8 "VIN" I L 7000 4100 60 
+F9 "OUT2" O R 8050 4600 60 
+F10 "IN2_3" I L 7000 4800 60 
+F11 "IN2_2" I L 7000 4700 60 
+F12 "IN2_1" I L 7000 4600 60 
+$EndSheet
+Wire Wire Line
+	6200 3100 6200 4250
+Wire Wire Line
+	6200 4250 7000 4250
+Wire Wire Line
+	6400 4350 7000 4350
+Wire Wire Line
+	6500 4450 7000 4450
+Wire Wire Line
+	6650 2350 7900 2350
+Wire Wire Line
+	6650 3100 6600 3100
+Wire Wire Line
+	6600 3100 6600 3900
+Wire Wire Line
+	6600 3900 8400 3900
+Wire Wire Line
+	8400 3900 8400 4250
+Wire Wire Line
+	8400 4250 8050 4250
+Connection ~ 6650 3100
+Wire Wire Line
+	6350 5500 6350 4600
+Wire Wire Line
+	6350 4600 7000 4600
+Wire Wire Line
+	6550 4700 7000 4700
+Wire Wire Line
+	6450 4800 7000 4800
+Wire Wire Line
+	8050 4600 8400 4600
+Wire Wire Line
+	8400 4600 8400 5200
+Wire Wire Line
+	8400 5200 6650 5200
 $EndSCHEMATC

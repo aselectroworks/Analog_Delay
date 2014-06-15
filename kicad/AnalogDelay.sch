@@ -42,7 +42,6 @@ LIBS:my_capacitor
 LIBS:my_resistor
 LIBS:jrc
 LIBS:rohm
-LIBS:temp
 LIBS:alps
 LIBS:on_semiconductor
 LIBS:AnalogDelay-cache
@@ -50,9 +49,9 @@ EELAYER 27 0
 EELAYER END
 $Descr A3 16535 11693
 encoding utf-8
-Sheet 1 6
+Sheet 1 8
 Title ""
-Date "30 apr 2014"
+Date "8 jun 2014"
 Rev ""
 Comp ""
 Comment1 ""
