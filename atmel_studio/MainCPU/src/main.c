@@ -1,4 +1,4 @@
-/**
+/*
  * \file
  *
  * \brief Empty user application template
@@ -31,6 +31,17 @@
 #include "AD5263.h"
 #include <string.h>
 
+// Prototype Declaration
+unsigned char TWI_Act_On_Failure_In_Last_Transmission ( unsigned char );
+uint16_t Get_Tempo_to_Delay_Time_ms(uint16_t , uint8_t );
+uint16_t Get_Delay_Time_ms_to_Tempo(uint16_t , uint8_t );
+void EEPROM_write(unsigned char , unsigned char );
+unsigned char EEPROM_read(unsigned char );
+void timer0_init(void);
+void timer1_init(void);
+uint8_t sample_encoder(void);
+
+	
 //#define __DELAY_CYCLE_INTRINSICS__
 PROGMEM_DECLARE(uint8_t, adc_to_wiper[1024]) = {
 	0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,1,1,1,1,
@@ -151,8 +162,8 @@ void timer1_init() {
 	while(!(PLLCSR & (1<<PLOCK)));
 	PLLCSR |= (1<<PCKE);
 	
-	OCR1A = 488; 
-	OCR1C = 976; 
+	//OCR1A = 488; 
+	//OCR1C = 976; 
 	//TCCR1B = 0b0100 << CS10;
 	TCCR1A = (0 << COM1A1 | 1 << COM1A0 | 0 << COM1B1 | 1 << COM1B0 | 0 << FOC1B | 0 << FOC1A | 1 << PWM1A | 0 << PWM1B);
 	TIMSK |= 0<<TOIE1;
@@ -801,13 +812,13 @@ int main (void)
 			ioport_set_pin_level(ON_OFF, DCR0&get_bit_mask(ON_OFF_BIT));	// Set ON/OFF Switch(U203:ADG621) ON
 			
 			// Delay Time Setting
-			i=0; 
+			i=0;
 			do {
 				i++;
 				//OCR = (uint16_t)((uint32_t)(DTR * 64000UL)>>(10+(TCCR1B&0x07)+((DCR1&0x08)>>3)));
 				OCR = (uint16_t)((uint32_t)(DTR * 64000UL)>>(10+i+(((DCR1&0x08)>>3)+1)+1));
 			} while(!(OCR<0x03FF));
-			TCCR1B = (TCCR1B&~0x07) | (i&(DCR0&((get_bit_mask(ON_OFF_BIT))>>ON_OFF_BIT)));
+			TCCR1B = (DCR0&get_bit_mask(ON_OFF_BIT)) ? (TCCR1B&~0x0F) | i : TCCR1B&~0x0F;
 			TC1H = OCR >> 8;
 			OCR1C = (uint8_t) OCR;
 			OCR = OCR >> 1;
