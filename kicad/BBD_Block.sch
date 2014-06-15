@@ -42,6 +42,9 @@ LIBS:my_capacitor
 LIBS:my_resistor
 LIBS:jrc
 LIBS:rohm
+LIBS:temp
+LIBS:alps
+LIBS:on_semiconductor
 LIBS:AnalogDelay-cache
 EELAYER 27 0
 EELAYER END
@@ -49,7 +52,7 @@ $Descr A3 16535 11693
 encoding utf-8
 Sheet 3 6
 Title ""
-Date "15 dec 2013"
+Date "30 apr 2014"
 Rev ""
 Comp ""
 Comment1 ""
@@ -914,7 +917,7 @@ Wire Wire Line
 	11450 7600 11350 7600
 Connection ~ 4800 8950
 Wire Wire Line
-	4700 8950 4800 8950
+	4800 8950 4700 8950
 Connection ~ 4200 8950
 Connection ~ 2200 3750
 Wire Wire Line
@@ -936,7 +939,7 @@ Connection ~ 14000 8050
 Wire Wire Line
 	14000 7900 14000 8050
 Wire Wire Line
-	7550 2550 6650 2550
+	6650 2550 7550 2550
 Wire Wire Line
 	4100 3750 5000 3750
 Connection ~ 14600 3350
@@ -974,7 +977,7 @@ Wire Wire Line
 	5000 3750 5000 6350
 Connection ~ 4800 3650
 Wire Wire Line
-	4100 3650 4800 3650
+	4800 3650 4100 3650
 Connection ~ 4800 3550
 Wire Wire Line
 	4700 3550 4800 3550
@@ -1012,7 +1015,7 @@ Connection ~ 14250 7400
 Wire Wire Line
 	13850 6750 13850 8050
 Wire Wire Line
-	14250 7950 14250 8050
+	14250 8050 14250 7950
 Wire Wire Line
 	13850 8050 14400 8050
 Wire Wire Line
@@ -1109,11 +1112,11 @@ Connection ~ 5100 3650
 Connection ~ 6150 2650
 Connection ~ 6300 2450
 Wire Wire Line
-	6150 1800 6150 1700
+	6150 1700 6150 1800
 Wire Wire Line
 	1150 1700 10850 1700
 Wire Wire Line
-	6300 1800 6300 1600
+	6300 1600 6300 1800
 Wire Wire Line
 	1150 1600 13650 1600
 Connection ~ 6300 1600
@@ -1143,7 +1146,7 @@ Connection ~ 14250 2000
 Wire Wire Line
 	13850 1350 13850 2650
 Wire Wire Line
-	14250 2550 14250 2650
+	14250 2650 14250 2550
 Wire Wire Line
 	13850 2650 14400 2650
 Wire Wire Line
@@ -1299,7 +1302,7 @@ Wire Wire Line
 Wire Wire Line
 	1550 7100 10850 7100
 Wire Wire Line
-	11000 7200 11000 7000
+	11000 7000 11000 7200
 Wire Wire Line
 	1700 7000 13650 7000
 Connection ~ 11000 7000
@@ -1460,4 +1463,76 @@ Wire Wire Line
 	9500 8750 9500 9250
 Connection ~ 8950 1600
 Connection ~ 6150 1700
+Text Notes 14750 7700 0    60   ~ 0
+R317, R324, R325: Value is incorrect!!!\nR317: 5.6k -> 1.5k\nR324: 12k -> 22k\nR325: 12k -> 470k
+Text Notes 9350 2100 0    60   ~ 0
+R311: 4.7k -> 4.7k//15k(5V VDD)\nR311: 4.7k -> 4.7k//8.2k(12V+Diode*5 Voltage Drop)\nIf possible, mount trim pot!\n
+Wire Notes Line
+	10300 1050 10900 1050
+Wire Notes Line
+	10900 1050 10900 1200
+Wire Notes Line
+	10900 1200 10300 1200
+Wire Notes Line
+	10300 1200 10300 1050
+Text Notes 14600 2100 0    60   ~ 0
+R301, R308, R309: Value is incorrect!!!\nR301: 5.6k -> 1.5k\nR308: 12k -> 22k\nR309: 12k -> 470k
+Text Notes 10300 900  0    60   ~ 0
+When using V3102, \nVGG of U301 and U302 is conflict!
+Wire Notes Line
+	9750 6450 10350 6450
+Wire Notes Line
+	10350 6450 10350 6600
+Wire Notes Line
+	9750 6600 9750 6450
+Text Notes 9850 6200 0    60   ~ 0
+When using V3102, \nVGG of U306 and U307 is conflict!
+Wire Notes Line
+	10350 6600 9750 6600
+Wire Notes Line
+	4350 3800 4600 3800
+Wire Notes Line
+	4600 3800 4600 3900
+Wire Notes Line
+	4600 3900 4350 3900
+Wire Notes Line
+	4350 3900 4350 3800
+Text Notes 4300 4000 0    60   ~ 0
+Insert coupling C!
+Text Notes 9250 7400 0    60   ~ 0
+R327: 4.7k -> 4.7k//15k(5V VDD)\nR327: 4.7k -> 4.7k//8.2k(12V+Diode*5 Voltage Drop)\nIf possible, mount trim pot!\n
+Text Notes 5000 7350 0    60   ~ 0
+R326: 4.7k -> 4.7k//15k(5V VDD)\nR326: 4.7k -> 4.7k//8.2k(12V+Diode*5 Voltage Drop)\nIf possible, mount trim pot!\n
+Text Notes 4850 2100 0    60   ~ 0
+R310: 4.7k -> 4.7k//15k(5V VDD)\nR310: 4.7k -> 4.7k//8.2k(12V+Diode*5 Voltage Drop)\nIf possible, mount trim pot!\n
+Wire Notes Line
+	14500 8700 14500 9200
+Wire Notes Line
+	14500 9200 14650 9200
+Wire Notes Line
+	14650 9200 14650 8700
+Wire Notes Line
+	14650 8700 14500 8700
+Text Notes 14550 9350 0    60   ~ 0
+Insert 470k ohm for Discharge
+Text Notes 14400 3600 0    60   ~ 0
+Insert 470k ohm for Discharge
+Wire Notes Line
+	14300 3250 14300 4000
+Wire Notes Line
+	14300 4000 14450 4000
+Wire Notes Line
+	14450 4000 14450 3250
+Wire Notes Line
+	14450 3250 14300 3250
+Text Notes 4250 9400 0    60   ~ 0
+Insert coupling C!
+Wire Notes Line
+	4400 9200 4400 9300
+Wire Notes Line
+	4400 9300 4600 9300
+Wire Notes Line
+	4600 9300 4600 9200
+Wire Notes Line
+	4600 9200 4400 9200
 $EndSCHEMATC

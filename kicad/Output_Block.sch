@@ -42,6 +42,9 @@ LIBS:my_capacitor
 LIBS:my_resistor
 LIBS:jrc
 LIBS:rohm
+LIBS:temp
+LIBS:alps
+LIBS:on_semiconductor
 LIBS:AnalogDelay-cache
 EELAYER 27 0
 EELAYER END
@@ -49,7 +52,7 @@ $Descr A3 16535 11693
 encoding utf-8
 Sheet 5 6
 Title ""
-Date "15 dec 2013"
+Date "30 apr 2014"
 Rev ""
 Comp ""
 Comment1 ""
@@ -2005,4 +2008,36 @@ Wire Wire Line
 	13550 6150 14700 6150
 Wire Wire Line
 	13550 6350 14700 6350
+Text Notes 11950 5650 1    60   ~ 0
+I2C ADDR: 0b00101101
+Text Notes 10650 5300 1    60   ~ 0
+I2C ADDR: 0b00101100
+Text Notes 600  9200 0    60   ~ 0
+Add input capacitance over 2.2uF\n => Not Adapt
+Text Notes 850  2350 0    60   ~ 0
+Add input capacitance over 2.2uF\n => Not Adapt
+Wire Notes Line
+	8650 2400 8650 2550
+Wire Notes Line
+	8650 2550 8750 2550
+Wire Notes Line
+	8750 2550 8750 2400
+Wire Notes Line
+	8750 2400 8650 2400
+Wire Notes Line
+	8600 9400 8600 9600
+Wire Notes Line
+	8600 9600 8700 9600
+Wire Notes Line
+	8700 9600 8700 9400
+Wire Notes Line
+	8700 9400 8600 9400
+Text Notes 8650 9300 0    60   ~ 0
+Cut for Expandor
+Text Notes 8650 2300 0    60   ~ 0
+Cut for Expandor
+Text Notes 2500 1150 0    60   ~ 0
+R608: 2.7k -> 27k\nR611: 1.5k -> 15k\nR602: 3.3k -> 33k\nC610: 0.022u -> 0.0022u\nC604: 0.01u -> 0.001u
+Text Notes 2100 8250 0    60   ~ 0
+R622: 2.7k -> 27k\nR626: 1.5k -> 15k\nR616: 3.3k -> 33k\nC632: 0.022u -> 0.0022u\nC626: 0.01u -> 0.001u
 $EndSCHEMATC

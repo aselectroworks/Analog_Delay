@@ -42,6 +42,9 @@ LIBS:my_capacitor
 LIBS:my_resistor
 LIBS:jrc
 LIBS:rohm
+LIBS:temp
+LIBS:alps
+LIBS:on_semiconductor
 LIBS:AnalogDelay-cache
 EELAYER 27 0
 EELAYER END
@@ -49,7 +52,7 @@ $Descr A3 16535 11693
 encoding utf-8
 Sheet 6 6
 Title ""
-Date "15 dec 2013"
+Date "30 apr 2014"
 Rev ""
 Comp ""
 Comment1 ""
@@ -338,21 +341,21 @@ Wire Wire Line
 Wire Wire Line
 	8400 6450 10300 6450
 Wire Wire Line
-	7100 2700 7300 2700
+	6850 2700 7300 2700
 Wire Wire Line
-	7100 1950 7100 2700
+	6850 1950 6850 2700
 Wire Wire Line
-	8300 2500 8300 2800
+	8550 2500 8550 2800
 Wire Wire Line
-	3000 2500 8300 2500
+	3000 2500 8550 2500
 Wire Wire Line
-	3000 2400 7100 2400
+	3000 2400 6850 2400
 Wire Wire Line
 	10800 2550 10800 5450
 Wire Wire Line
 	10800 2900 8100 2900
 Wire Wire Line
-	8300 2800 8100 2800
+	8550 2800 8100 2800
 Wire Wire Line
 	8100 2700 10600 2700
 Wire Wire Line
@@ -362,19 +365,19 @@ Wire Wire Line
 Wire Wire Line
 	10200 6350 10200 3300
 Wire Wire Line
-	10200 3300 7100 3300
+	10200 3300 6450 3300
 Wire Wire Line
-	7100 3300 7100 2900
+	6450 3300 6450 2900
 Wire Wire Line
-	7100 2900 7300 2900
+	6450 2900 7300 2900
 Wire Wire Line
 	10300 6450 10300 3200
 Wire Wire Line
-	10300 3200 7000 3200
+	10300 3200 6350 3200
 Wire Wire Line
-	7000 3200 7000 3000
+	6350 3200 6350 3000
 Wire Wire Line
-	7000 3000 7300 3000
+	6350 3000 7300 3000
 Connection ~ 6100 5650
 Wire Wire Line
 	5550 5250 5400 5250
@@ -385,10 +388,10 @@ Connection ~ 10600 2700
 Wire Wire Line
 	10600 2050 10600 1950
 Wire Wire Line
-	7100 1950 10800 1950
+	6850 1950 10800 1950
 Wire Wire Line
 	10800 1950 10800 2050
-Connection ~ 7100 2400
+Connection ~ 6850 2400
 Connection ~ 10600 1950
 Wire Wire Line
 	8400 6150 9125 6150
@@ -431,11 +434,11 @@ Wire Wire Line
 Wire Wire Line
 	10100 6550 10100 3400
 Wire Wire Line
-	10100 3400 7200 3400
+	10100 3400 6550 3400
 Wire Wire Line
-	7200 3400 7200 2800
+	6550 3400 6550 2800
 Wire Wire Line
-	7200 2800 7300 2800
+	6550 2800 7300 2800
 Connection ~ 10600 5250
 Connection ~ 10800 5450
 Wire Wire Line
@@ -552,4 +555,20 @@ Connection ~ 3600 5050
 Wire Wire Line
 	5000 4600 3600 4600
 Connection ~ 3600 4600
+Text Label 7200 2900 2    60   ~ 0
+ENC_A
+Text Label 7200 3000 2    60   ~ 0
+ENC_B
+Text Label 7200 2700 2    60   ~ 0
+D+5V
+Text Label 8150 2800 0    60   ~ 0
+DGND
+Text Label 8150 2700 0    60   ~ 0
+SDA
+Text Label 8150 2900 0    60   ~ 0
+SCL
+Text Label 8150 3000 0    60   ~ 0
+FB
+Text Label 7200 2800 2    60   ~ 0
+VOL
 $EndSCHEMATC
