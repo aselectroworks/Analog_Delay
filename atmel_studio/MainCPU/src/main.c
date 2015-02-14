@@ -193,23 +193,29 @@ uint8_t sample_encoder() {
 
 uint16_t Get_Delay_Time_ms_to_Tempo(uint16_t delay_time_ms, uint8_t delay_mode) {
 	// delay_time_ms: delay time[msec]
-	// delay_mode   : 0:Quarter note, 1: Dotted quarter note, 2: Eighth note, 3: Triplet
+	// delay_mode   : 0:Quarter note, 1: Dotted Eighth note, 2: Eighth note, 3: Dotted sixteenth note, 4: Triplet, 5: Triplet eighth
 	// return       : Tempo
 	uint16_t tempo = 0;
 	
 	switch(delay_mode) {
 		case 0: 
-			tempo = 60000UL/delay_time_ms;
+			tempo = 60000UL/delay_time_ms;		// quarter note
 			break;
 		case 1: 
-			tempo = 60000UL/delay_time_ms*3/4;
+			tempo = 60000UL/delay_time_ms*3/4;	// Dotted eighth note
 			break;
 		case 2: 
-			tempo = 60000UL/delay_time_ms*1/2;
+			tempo = 60000UL/delay_time_ms*1/2;	// eighth note
 			break;
-		case 3:
-			tempo = 60000UL/delay_time_ms*1/3;
+		case 3: 
+			tempo = 60000UL/delay_time_ms*3/8;	// Dotted sixteenth note
+			break; 
+		case 4:
+			tempo = 60000UL/delay_time_ms*1/3;	// Triplet
 			break;
+		case 5: 
+			tempo = 60000UL/delay_time_ms*1/6;	// Triplet eighth
+			break; 
 		default:
 			break;
 	}
@@ -218,7 +224,7 @@ uint16_t Get_Delay_Time_ms_to_Tempo(uint16_t delay_time_ms, uint8_t delay_mode) 
 
 uint16_t Get_Tempo_to_Delay_Time_ms(uint16_t tempo, uint8_t delay_mode) {
 	// tempo
-	// delay_mode   : 0:Quarter note, 1: Dotted quarter note, 2: Eighth note, 3: Triplet
+	// delay_mode   : 0:Quarter note, 1: Dotted quarter note, 2: Eighth note, 3: Dotted eighth note, 4: Triplet
 	// return - delay_time_ms: delay time[msec]
 	uint32_t delay_time_ms = 0;
 	
@@ -232,8 +238,14 @@ uint16_t Get_Tempo_to_Delay_Time_ms(uint16_t tempo, uint8_t delay_mode) {
 		case 2:
 			delay_time_ms = 60000/tempo*1/2;
 			break;
-		case 3:
+		case 3: 
+			delay_time_ms = 60000/tempo*3/8; 
+			break; 
+		case 4:
 			delay_time_ms = 60000/tempo*1/3;
+			break;
+		case 5:
+			delay_time_ms = 60000/tempo*1/6;
 			break;
 		default:
 			break;
@@ -301,8 +313,9 @@ int main (void)
 	uint16_t sw1_tap_count =0x3FF;		// SW1 tap timer/counter per 1msec	
 	uint8_t DCR0 = 0x00;
 	uint8_t DCR1 = get_bit_mask(TEMPO_TIME_BIT);
+	uint8_t DCR2 = 0x00;
 	uint16_t TPR = 120;
-	uint16_t DTR = Get_Tempo_to_Delay_Time_ms(TPR, (DCR0&(get_bit_mask(DTYPE1_BIT)|get_bit_mask(DTYPE0_BIT)))>>DTYPE0_BIT);	// Transfer Gotten Delay Time to Tempo
+	uint16_t DTR = Get_Tempo_to_Delay_Time_ms(TPR, ((DCR2&(get_bit_mask(DTYPE2_BIT)|get_bit_mask(DTYPE1_BIT)|get_bit_mask(DTYPE0_BIT)))>>DTYPE0_BIT));	// Transfer Gotten Delay Time to Tempo
 	uint8_t VOLR = 0x00;
 	uint8_t FXVOLUME[2] = {0};
 	uint8_t FBVR = 0x00;
@@ -333,17 +346,18 @@ int main (void)
 				// Set Display Data to LCD
 				//I2C_Transfer(ADDR, CMD, DATA, databyte, R/W);
 				TWI_targetSlaveAddress = LCD_ADDR_BYTE;
-				messageBuf[0] = (TWI_targetSlaveAddress<<TWI_ADR_BITS) | (FALSE<<TWI_READ_BIT); // The first byte must always consit of General Call code or the TWI slave address.
-				messageBuf[1] = LCD_CMD;             // The first byte is used for commands.
-				messageBuf[2] = DCR0;
-				messageBuf[3] = DCR1;
-				messageBuf[4] = (DTR>>8);
-				messageBuf[5] = (DTR&0xFF);
-				messageBuf[6] = (TPR>>8);
-				messageBuf[7] = (TPR&0xFF);
-				messageBuf[8] = VOLR;
-				messageBuf[9] = FBVR;
-				temp = USI_TWI_Start_Transceiver_With_Data(messageBuf, 10);
+				messageBuf[0]  = (TWI_targetSlaveAddress<<TWI_ADR_BITS) | (FALSE<<TWI_READ_BIT); // The first byte must always consit of General Call code or the TWI slave address.
+				messageBuf[1]  = LCD_CMD;             // The first byte is used for commands.
+				messageBuf[2]  = DCR0;
+				messageBuf[3]  = DCR1;
+				messageBuf[4]  = (DTR>>8);
+				messageBuf[5]  = (DTR&0xFF);
+				messageBuf[6]  = (TPR>>8);
+				messageBuf[7]  = (TPR&0xFF);
+				messageBuf[8]  = VOLR;
+				messageBuf[9]  = FBVR;
+				messageBuf[10] = DCR2;
+				temp = USI_TWI_Start_Transceiver_With_Data(messageBuf, 11);
 				if (!temp)    // One of the operations failed.
 				{             // Use TWI status information to detemine cause of failure and take appropriate actions.
 					TWI_Act_On_Failure_In_Last_Transmission( USI_TWI_Get_State_Info( ) );
@@ -410,7 +424,7 @@ int main (void)
 						sw1_tap_count = (uint16_t)Get_Delay_Time_ms_to_Tempo(sw1_tap_count, 0);
 						if((sw1_tap_count>=MIN_DELAY_TEMPO) && (sw1_tap_count<=MAX_DELAY_TEMPO)) {
 							TPR = (TPR + sw1_tap_count) >> 1;			// If Tap < 1023msec, Write Delay Time
-							DTR = Get_Tempo_to_Delay_Time_ms(TPR, (DCR0&(get_bit_mask(DTYPE1_BIT)|get_bit_mask(DTYPE0_BIT)))>>DTYPE0_BIT);	// Transfer Gotten Delay Time to Tempo
+							DTR = Get_Tempo_to_Delay_Time_ms(TPR, ((DCR2&(get_bit_mask(DTYPE2_BIT)|get_bit_mask(DTYPE1_BIT)|get_bit_mask(DTYPE0_BIT)))>>DTYPE0_BIT));	// Transfer Gotten Delay Time to Tempo
 						}
 					}
 					sw1_tap_count = 0;					// Clear at pushing SW1
@@ -423,7 +437,7 @@ int main (void)
 							EEPROM_write((DCR1&(get_bit_mask(MBANK0_BIT)|get_bit_mask(MBANK1_BIT)|get_bit_mask(MBANK2_BIT)))+0x01, (unsigned char)(DTR>>8));
 							EEPROM_write((DCR1&(get_bit_mask(MBANK0_BIT)|get_bit_mask(MBANK1_BIT)|get_bit_mask(MBANK2_BIT)))+0x02, (unsigned char)(TPR&0xFF));
 							EEPROM_write((DCR1&(get_bit_mask(MBANK0_BIT)|get_bit_mask(MBANK1_BIT)|get_bit_mask(MBANK2_BIT)))+0x03, (unsigned char)(TPR>>8));
-							EEPROM_write((DCR1&(get_bit_mask(MBANK0_BIT)|get_bit_mask(MBANK1_BIT)|get_bit_mask(MBANK2_BIT)))+0x04, (unsigned char)(DCR0&(get_bit_mask(DTYPE1_BIT)|get_bit_mask(DTYPE0_BIT))));
+							EEPROM_write((DCR1&(get_bit_mask(MBANK0_BIT)|get_bit_mask(MBANK1_BIT)|get_bit_mask(MBANK2_BIT)))+0x04, (unsigned char)(DCR2));
 						break;
 						case LCD_CMD_DISPLAY_LOAD:
 							// Load Tempo
@@ -431,7 +445,7 @@ int main (void)
 							DTR = (DTR&0x00FF) | (EEPROM_read((DCR1&(get_bit_mask(MBANK0_BIT)|get_bit_mask(MBANK1_BIT)|get_bit_mask(MBANK2_BIT)))+0x01)<<8);
 							TPR = EEPROM_read((DCR1&(get_bit_mask(MBANK0_BIT)|get_bit_mask(MBANK1_BIT)|get_bit_mask(MBANK2_BIT)))+0x02);
 							TPR = (TPR&0x00FF) | (EEPROM_read((DCR1&(get_bit_mask(MBANK0_BIT)|get_bit_mask(MBANK1_BIT)|get_bit_mask(MBANK2_BIT)))+0x03)<<8);
-							DCR0 = (DCR0&~(get_bit_mask(DTYPE1_BIT)|get_bit_mask(DTYPE0_BIT))) | (EEPROM_read((DCR1&(get_bit_mask(MBANK0_BIT)|get_bit_mask(MBANK1_BIT)|get_bit_mask(MBANK2_BIT)))+0x04));
+							DCR2 = EEPROM_read((DCR1&(get_bit_mask(MBANK0_BIT)|get_bit_mask(MBANK1_BIT)|get_bit_mask(MBANK2_BIT)))+0x04);
 						break;
 						default:
 						break;
@@ -452,8 +466,13 @@ int main (void)
 						if(sw1_push_count==1000) {		// Count 1sec
 							// Long push Detect
 							// Toggle Delay mode
-							DCR0 += 0x40;
-							DTR = Get_Tempo_to_Delay_Time_ms(TPR, (DCR0&(get_bit_mask(DTYPE1_BIT)|get_bit_mask(DTYPE0_BIT)))>>DTYPE0_BIT);
+							if((DCR2&(get_bit_mask(DTYPE2_BIT)|get_bit_mask(DTYPE1_BIT)|get_bit_mask(DTYPE0_BIT)))>>DTYPE0_BIT == 0x05){
+								DCR2 = (DCR2&~(get_bit_mask(DTYPE2_BIT)|get_bit_mask(DTYPE1_BIT)|get_bit_mask(DTYPE0_BIT)));
+							}
+							else {
+								DCR2++;
+							}
+							DTR = Get_Tempo_to_Delay_Time_ms(TPR, ((DCR2&(get_bit_mask(DTYPE2_BIT)|get_bit_mask(DTYPE1_BIT)|get_bit_mask(DTYPE0_BIT)))>>DTYPE0_BIT));
 						}
 					}
 				}
@@ -498,8 +517,8 @@ int main (void)
 					else {
 						switch(DCR1 & 0x01) {
 							case DISPLAY_DELAY_TIME: 
-								if(Get_Delay_Time_ms_to_Tempo(DTR, (DCR0&(get_bit_mask(DTYPE1_BIT)|get_bit_mask(DTYPE0_BIT)))>>DTYPE0_BIT) > (MIN_DELAY_TEMPO-1)) {
-									switch((DCR0&(get_bit_mask(DTYPE1_BIT)|get_bit_mask(DTYPE0_BIT)))>>DTYPE0_BIT) {
+								if(Get_Delay_Time_ms_to_Tempo(DTR, ((DCR2&(get_bit_mask(DTYPE2_BIT)|get_bit_mask(DTYPE1_BIT)|get_bit_mask(DTYPE0_BIT)))>>DTYPE0_BIT)) > (MIN_DELAY_TEMPO-1)) {
+									switch(((DCR2&(get_bit_mask(DTYPE2_BIT)|get_bit_mask(DTYPE1_BIT)|get_bit_mask(DTYPE0_BIT)))>>DTYPE0_BIT)) {
 										case 0: 
 											if(DTR!=1000) DTR++;	// Transfer Gotten Delay Time to Tempo;
 										break;
@@ -507,18 +526,24 @@ int main (void)
 											if(DTR!=750) DTR++;	// Transfer Gotten Delay Time to Tempo;
 										break;
 										case 2:
-										if(DTR!=500) DTR++;	// Transfer Gotten Delay Time to Tempo;
+											if(DTR!=500) DTR++;	// Transfer Gotten Delay Time to Tempo;
 										break;
-										case 3:
-										if(DTR!=333) DTR++;	// Transfer Gotten Delay Time to Tempo;
+										case 3: 
+											if(DTR!=375) DTR++; // Transfer Gotten Delay Time to Tempo;
+										break; 
+										case 4:
+											if(DTR!=333) DTR++;	// Transfer Gotten Delay Time to Tempo;
+										break;
+										case 5:
+											if(DTR!=166) DTR++;	// Transfer Gotten Delay Time to Tempo;
 										break;
 									}
 								}
-								TPR = Get_Delay_Time_ms_to_Tempo(DTR, (DCR0&(get_bit_mask(DTYPE1_BIT)|get_bit_mask(DTYPE0_BIT)))>>DTYPE0_BIT);	// Transfer Gotten Delay Time to Tempo
+								TPR = Get_Delay_Time_ms_to_Tempo(DTR, ((DCR2&(get_bit_mask(DTYPE2_BIT)|get_bit_mask(DTYPE1_BIT)|get_bit_mask(DTYPE0_BIT)))>>DTYPE0_BIT));	// Transfer Gotten Delay Time to Tempo
 							break;
 							case DISPLAY_TEMPO:
 								if(TPR<MAX_DELAY_TEMPO) TPR++;
-								DTR = Get_Tempo_to_Delay_Time_ms(TPR, (DCR0&(get_bit_mask(DTYPE1_BIT)|get_bit_mask(DTYPE0_BIT)))>>DTYPE0_BIT);
+								DTR = Get_Tempo_to_Delay_Time_ms(TPR, ((DCR2&(get_bit_mask(DTYPE2_BIT)|get_bit_mask(DTYPE1_BIT)|get_bit_mask(DTYPE0_BIT)))>>DTYPE0_BIT));
 							break;
 							default:
 							break;
@@ -550,27 +575,33 @@ int main (void)
 					else {
 						switch(DCR1 & 0x01) {
 							case DISPLAY_DELAY_TIME:
-							if(Get_Delay_Time_ms_to_Tempo(DTR, (DCR0&(get_bit_mask(DTYPE1_BIT)|get_bit_mask(DTYPE0_BIT)))>>DTYPE0_BIT) < MAX_DELAY_TEMPO) {	// Transfer Gotten Delay Time to Tempo;
-								switch((DCR0&(get_bit_mask(DTYPE1_BIT)|get_bit_mask(DTYPE0_BIT)))>>DTYPE0_BIT) {
+							if(Get_Delay_Time_ms_to_Tempo(DTR, ((DCR2&(get_bit_mask(DTYPE2_BIT)|get_bit_mask(DTYPE1_BIT)|get_bit_mask(DTYPE0_BIT)))>>DTYPE0_BIT)) < MAX_DELAY_TEMPO) {	// Transfer Gotten Delay Time to Tempo;
+								switch(((DCR2&(get_bit_mask(DTYPE2_BIT)|get_bit_mask(DTYPE1_BIT)|get_bit_mask(DTYPE0_BIT)))>>DTYPE0_BIT)) {
 									case 0:
-									if(DTR!=120) DTR--;	// Transfer Gotten Delay Time to Tempo;
+										if(DTR!=120) DTR--;	// Transfer Gotten Delay Time to Tempo;
 									break;
 									case 1:
-									if(DTR!=90) DTR--;	// Transfer Gotten Delay Time to Tempo;
+										if(DTR!=90) DTR--;	// Transfer Gotten Delay Time to Tempo;
 									break;
 									case 2:
-									if(DTR!=60) DTR--;	// Transfer Gotten Delay Time to Tempo;
+										if(DTR!=60) DTR--;	// Transfer Gotten Delay Time to Tempo;
 									break;
-									case 3:
-									if(DTR!=40) DTR--;	// Transfer Gotten Delay Time to Tempo;
+									case 3: 
+										if(DTR!=45) DTR--;	// Transfer Gotten Delay Time to Tempo;
+									break; 
+									case 4:
+										if(DTR!=40) DTR--;	// Transfer Gotten Delay Time to Tempo;
+									break;
+									case 5:
+										if(DTR!=20) DTR--;	// Transfer Gotten Delay Time to Tempo;
 									break;
 								}
 							}
-							TPR = Get_Delay_Time_ms_to_Tempo(DTR, (DCR0&(get_bit_mask(DTYPE1_BIT)|get_bit_mask(DTYPE0_BIT)))>>DTYPE0_BIT);	// Transfer Gotten Delay Time to Tempo
+							TPR = Get_Delay_Time_ms_to_Tempo(DTR, ((DCR2&(get_bit_mask(DTYPE2_BIT)|get_bit_mask(DTYPE1_BIT)|get_bit_mask(DTYPE0_BIT)))>>DTYPE0_BIT));	// Transfer Gotten Delay Time to Tempo
 							break;
 							case DISPLAY_TEMPO:
 							if(TPR>MIN_DELAY_TEMPO) TPR--;
-							DTR = Get_Tempo_to_Delay_Time_ms(TPR, (DCR0&(get_bit_mask(DTYPE1_BIT)|get_bit_mask(DTYPE0_BIT)))>>DTYPE0_BIT);
+							DTR = Get_Tempo_to_Delay_Time_ms(TPR, ((DCR2&(get_bit_mask(DTYPE2_BIT)|get_bit_mask(DTYPE1_BIT)|get_bit_mask(DTYPE0_BIT)))>>DTYPE0_BIT));
 							break;
 							default:
 							break;

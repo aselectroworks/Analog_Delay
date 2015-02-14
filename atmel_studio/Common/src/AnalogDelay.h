@@ -35,7 +35,7 @@
 #define LCD_CMD_DISPLAY_SAVE	0x06
 #define LCD_CMD_PUTSTR			0x07
 
-#define MESSAGEBUF_SIZE	10
+#define MESSAGEBUF_SIZE	11
 
 #define ENCODER_INCREMENT	1
 #define ENCODER_DECREMENT	0
@@ -50,8 +50,6 @@
 #define INDET1_BIT			3
 #define OUTDET1_BIT			4
 #define OUTDET0_BIT			5
-#define DTYPE0_BIT			6
-#define DTYPE1_BIT			7
 
 #define get_bit_mask(bit)	0x01<<bit
 #define set_bit_level_high(r, bit)	r |= 1<<bit
@@ -71,5 +69,9 @@
 #define MIN_DELAY_TIME		40		// Minimum Delay Time(msec)
 #define MAX_DELAY_TEMPO		500	// Maximum Delay Tempo
 #define MIN_DELAY_TEMPO		60		// Minimum Delay Tempo
+
+#define DTYPE0_BIT			0
+#define DTYPE1_BIT			1
+#define DTYPE2_BIT			2
 
 #endif /* ANALOGDELAY_V2_H_ */
