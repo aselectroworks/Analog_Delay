@@ -52,13 +52,18 @@ void set_custom_character() {
 	uint8_t quarter_note_chr[8] = {0,4,4,4,4,28,28,0};				// Quarter note
 	uint8_t dotted_quarter_note_chr[8] = {0,4,4,4,4,28,29,0};		// Dotted Quarter note
 	uint8_t eighth_note_chr[8] = {0,6,7,5,4,28,28,0};				// Eighth note
-	uint8_t triplet_note_chr[8] = {0,11,9,11,9,27,24,0};				// Triplet
-				
+	uint8_t dotted_eighth_note_chr[8] = {0,6,7,5,4,28,29,0};		// Dotted Eighth note
+	uint8_t dotted_demiquaver_note_chr[8] = {12,14,11,12,14,11,24,25};		// Dotted demiquaver note
+	uint8_t triplet_note_chr[8] = {8,8,8,11,25,27,1,3};				// Triplet
+	uint8_t triplet_eighth_note_chr[8] = {12,14,8,11,25,27,1,3};				// Triplet eighth
+					
 	lcd_setcg(0x00, 1, (uint8_t*)quarter_note_chr);
-	lcd_setcg(0x01, 1, (uint8_t*)dotted_quarter_note_chr);
+	lcd_setcg(0x01, 1, (uint8_t*)dotted_eighth_note_chr);
 	lcd_setcg(0x02, 1, (uint8_t*)eighth_note_chr);
-	lcd_setcg(0x03, 1, (uint8_t*)triplet_note_chr);
-
+	lcd_setcg(0x03, 1, (uint8_t*)dotted_demiquaver_note_chr);
+	lcd_setcg(0x04, 1, (uint8_t*)triplet_note_chr);
+	lcd_setcg(0x05, 1, (uint8_t*)triplet_eighth_note_chr);
+	
 }
 
 void display_save(uint8_t DCR1) {
@@ -131,7 +136,7 @@ void display_volume(uint8_t VOLR, uint8_t FBVR) {
 	
 }
 	
-void display_status(uint8_t DCR0, uint8_t DCR1, uint16_t DTR, uint16_t TPR) {
+void display_status(uint8_t DCR0, uint8_t DCR1, uint16_t DTR, uint16_t TPR, uint8_t DCR2) {
 	
 	irqflags_t flags;
 	char DTR_STR[10] = {};
@@ -167,7 +172,7 @@ void display_status(uint8_t DCR0, uint8_t DCR1, uint16_t DTR, uint16_t TPR) {
 		lcd_putstr("FXOFF  ");
 	}
 	lcd_locate(0, 7);
-	switch((DCR0&0xC0)>>6) {		// Tempo mode Display switch
+	switch(DCR2&0x07) {		// Tempo mode Display switch
 		case 0:
 			lcd_putc(0x00);
 		break;
@@ -179,6 +184,12 @@ void display_status(uint8_t DCR0, uint8_t DCR1, uint16_t DTR, uint16_t TPR) {
 		break;
 		case 3:
 			lcd_putc(0x03);
+		break;
+		case 4: 
+			lcd_putc(0x04);
+		break; 
+		case 5:
+			lcd_putc(0x05);
 		break;
 		default:
 		break;
@@ -286,7 +297,7 @@ int main (void)
 	uint16_t TPR = 0;
 	uint8_t VOLR = 80;
 	uint8_t FBVR = 55;
-	
+	uint8_t DCR2 = 0; 
 	board_init();
 	// Insert application code here, after the board has been initialized.
 	//delay_ms(100);
@@ -311,7 +322,7 @@ int main (void)
 				// Check if the last operation was a reception
 				if ( TWI_statusReg.RxDataInBuf )
 				{
-					TWI_Get_Data_From_Transceiver(messageBuf, 9);
+					TWI_Get_Data_From_Transceiver(messageBuf, 10);
 					// Check if the last operation was a reception as General Call
 					if ( TWI_statusReg.genAddressCall )
 					{
@@ -337,7 +348,8 @@ int main (void)
 								TPR = (messageBuf[5] << 8 | messageBuf[6]);
 								VOLR = messageBuf[7];
 								FBVR = messageBuf[8];
-								display_status(DCR0, DCR1, DTR, TPR);
+								DCR2 = messageBuf[9];
+								display_status(DCR0, DCR1, DTR, TPR, DCR2);
 							break;
 							case LCD_CMD_DISPLAY_VOLUME:
 								DCR0 = messageBuf[1];
@@ -346,6 +358,7 @@ int main (void)
 								TPR = (messageBuf[5] << 8 | messageBuf[6]);
 								VOLR = messageBuf[7];
 								FBVR = messageBuf[8];
+								DCR2 = messageBuf[9];
 								display_volume(VOLR, FBVR);
 							break;
 							case LCD_CMD_DISPLAY_SAVE:
@@ -355,6 +368,7 @@ int main (void)
 								TPR = (messageBuf[5] << 8 | messageBuf[6]);
 								VOLR = messageBuf[7];
 								FBVR = messageBuf[8];
+								DCR2 = messageBuf[9];
 								display_save(DCR1);
 							break;
 							case LCD_CMD_DISPLAY_LOAD:
@@ -364,6 +378,7 @@ int main (void)
 								TPR = (messageBuf[5] << 8 | messageBuf[6]);
 								VOLR = messageBuf[7];
 								FBVR = messageBuf[8];
+								DCR2 = messageBuf[9];
 								display_load(DCR1);
 							break;
 							default:
